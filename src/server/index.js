@@ -16,7 +16,7 @@ app.use(express.static(path.join(__dirname, "../../public")));
 app.use(
     session({
         name: "session",
-        secret: "twofactor",
+        secret: "graphical password",
         resave: false,
         saveUninitialized: true,
         cookie: {
@@ -53,5 +53,5 @@ app.post("/v1/session", (req, res) => {
 });
 
 let server = app.listen(8080, () => {
-    console.log("Two Factor example app listening on " + server.address().port);
+    console.log("Graphical Password Authentication example app listening on " + server.address().port);
 });
