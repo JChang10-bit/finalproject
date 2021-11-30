@@ -1,0 +1,22 @@
+{
+  "name": "finalproject",
+  "version": "1.0.0",
+  "description": "final project- graphical password authentication",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./src/server/index.js"
+  },
+  "keywords": [],
+  "author": "J. Chang",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "morgan": "^1.10.0",
+    "qrcode": "^1.5.0"
+  },
+  "devDependencies": {
+    "express-session": "^1.17.2",
+    "speakeasy": "^2.0.0"
+  }
+}

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <script>
+        const onSubmit = async () => {
+            let data;
+            try {
+                data = {
+                    username: document.getElementById("username").value,
+                    password: document.getElementById("password").value,
+                    pictureOne: document.querySelector('input[name="marvel"]:checked').value,
+                    pictureTwo: document.querySelector('input[name="vehicle"]:checked').value,
+                    pictureThree: document.querySelector('input[name="fastFood"]:checked').value
+                };
+            } catch(err) {
+                console.log("Missing fields for proper authentication");
+                if (data.username === "" || data.password === "") {
+                    console.log('Need username or password');
+                    return;
+                }
+            }
+
+            try {
+                const res = await fetch("/v1/session", {
+                    method: "POST",
+                    body: JSON.stringify(data),
+                    headers: { "content-type": "application/json" }
+                });
+                const response = await res.json();
+                if (res.ok) {
+                    console.log(`Success: ${response.message}`);
+                } else {
+                    console.log(`Failure: ${response.error}`);
+                }
+            } catch(err) {
+                console.log(err);
+            }
+        }
+    </script>
+</head>
+<body>
+<form>
+    <div>
+        <label for="username">Username:</label>
+        <input name="username" type="text" id="username">
+    </div>
+    <div>
+        <label for="password">Password:</label>
+        <input name="password" type="password" id="password">
+    </div>
+    <p>Picture One:</p>
+    <div id="marvelChars">
+        <input type="radio" id="marvelsCharOne" name="marvel" value="ironMan">
+        <img src="https://cdn.shopify.com/s/files/1/0151/0741/products/63767e36be69e2204043233365c0b89f_1024x1024.jpeg?v=1578641816" alt="Iron Man" width="150" height="150">
+        <input type="radio" id="marvelsCharTwo" name="marvel" value="hulk">
+        <img src="https://p.kindpng.com/picc/s/54-540396_hulk-hands-logo-fist-clip-art-hulk-logo.png" alt="Hulk" width="150" height="150">
+        <input type="radio" id="marvelsCharThree" name="marvel" value="thor">
+        <img src="https://rlv.zcache.com/avengers_classics_thor_leaping_with_mjolnir_square_sticker-r2d1d27fe38c548bb9a63135482b020cc_0ugra_8byvr_704.webp" alt="Thor" width="150" height="150">
+    </div>
+    <p>Picture Two:</p>
+    <div id="vehicles">
+        <input type="radio" id="vehiclesOne" name="vehicle" value="miniVan">
+        <img src="https://cdn-icons-png.flaticon.com/512/55/55349.png" alt="Mini Van" width="150" height="150">
+        <input type="radio" id="vehiclesTwo" name="vehicle" value="truck">
+        <img src="https://www.chevrolet.com/content/dam/chevrolet/na/us/english/index/shared-assets/grossweight.png?imwidth=960" alt="Pick-Up Truck" width="150" height="150">
+        <input type="radio" id="vehiclesThree" name="vehicle" value="sportsCar">
+        <img src="https://c.neh.tw/thumb/f/720/comvecteezy506196.jpg" alt="Spots Car" width="150" height="150">
+    </div>
+    <p>Picture Three:</p>
+    <div id="fastFoods">
+        <input type="radio" id="fastFoodOne" name="fastFood" value="mcDonalds">
+        <img src="https://media.glassdoor.com/sqll/432/mcdonald-s-squareLogo-1635461372262.png" alt="McDonald's" width="150" height="150">
+        <input type="radio" id="fastFoodTwo" name="fastFood" value="burgerKing">
+        <img src="https://www.festisite.com/static/partylogo/img/logos/burger-king.png" alt="Burger King" width="150" height="150">
+        <input type="radio" id="fastFoodThree" name="fastFood" value="wendys">
+        <img src="https://ih1.redbubble.net/image.1114367598.4170/st,small,845x845-pad,1000x1000,f8f8f8.jpg" alt="Wendy's" width="150" height="150">
+    </div>
+    <button onClick="onSubmit(); return false;">Login</button>
+</form>
+</body>
+</html>
